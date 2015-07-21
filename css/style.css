@@ -1,0 +1,145 @@
+/* this CSS is not part of the widget, it is here just as an example of the demo page styling.... Don't copy this one, roll your own. One
+ * of the key things about the widget is that it allows you to do your own styling!
+ */
+
+
+a.color-box:active, a.color-box:hover {
+	text-decoration: none;
+}
+.btn-toolbar>.btn-group-xs>.btn {
+	font-size: 14px;
+}
+.btn-toolbar>.btn-group-sm>.btn {
+	font-size: 16px;
+}
+
+.color-box {
+	position: relative;
+	float: left;
+	width:24px;
+	height:24px;
+	margin: 2px;
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	font-size: 14px;
+	color: black;
+	line-height: 1.42857143;
+	text-decoration: none;
+}
+
+.col-md-0 {
+	float: left;
+	position: relative;
+	min-height: 1px;
+	padding: 4px 1px;
+}
+.col-md-auto {
+	float: left;
+	position: relative;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.editable {
+	background-color: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	min-width: 30px;
+	min-height: 20px;
+	padding: 4px 10px;
+}
+.richtext {
+	max-height: 250px;
+	height: 250px;
+	background-color: white;
+	border-collapse: separate; 
+	border: 1px solid rgb(204, 204, 204); 
+	margin-top: 1px; 
+	padding: 4px; 
+	box-sizing: content-box; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+	overflow: scroll;
+	outline: none;
+}
+.richtext-zone {
+  position: relative;
+}
+.switch-icon>.active {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.switch-icon>.btn {
+	padding: 5px 12px;
+}
+
+.switch-icon {
+  background-color: #F5F5F5;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  color: #9DA0A4;
+  content: "Row";
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 2;
+  padding: 0px;
+  position: absolute;
+  right: 15px;
+  top: 0px;
+  z-index: 1;
+	-moz-opacity:0.8; 
+	filter:alpha(opacity=80);
+	opacity:0.8;
+ }
+.tabs-below>.nav-tabs,.tabs-right>.nav-tabs,.tabs-left>.nav-tabs{border-bottom:0;}
+.tab-content>.tab-pane,.pill-content>.pill-pane{display:none;}
+.tab-content>.active,.pill-content>.active{display:block;}
+.tabs-below>.nav-tabs{border-top:1px solid #ddd;}
+.tabs-below>.nav-tabs>li{margin-top:-1px;margin-bottom:0;}
+.tabs-below>.nav-tabs>li>a{-webkit-border-radius:0 0 4px 4px;-moz-border-radius:0 0 4px 4px;border-radius:0 0 4px 4px;}.tabs-below>.nav-tabs>li>a:hover,.tabs-below>.nav-tabs>li>a:focus{border-bottom-color:transparent;border-top-color:#ddd;}
+.tabs-below>.nav-tabs>.active>a,.tabs-below>.nav-tabs>.active>a:hover,.tabs-below>.nav-tabs>.active>a:focus{border-color:transparent #ddd #ddd #ddd;}
+.tabs-left>.nav-tabs>li,.tabs-right>.nav-tabs>li{float:none;}
+.tabs-left>.nav-tabs>li>a,.tabs-right>.nav-tabs>li>a{min-width:74px;margin-right:0;margin-bottom:3px;}
+.tabs-left>.nav-tabs{float:left;margin-right:19px;border-right:1px solid #ddd;}
+.tabs-left>.nav-tabs>li>a{margin-right:-1px;-webkit-border-radius:4px 0 0 4px;-moz-border-radius:4px 0 0 4px;border-radius:4px 0 0 4px;}
+.tabs-left>.nav-tabs>li>a:hover,.tabs-left>.nav-tabs>li>a:focus{border-color:#eeeeee #dddddd #eeeeee #eeeeee;}
+.tabs-left>.nav-tabs .active>a,.tabs-left>.nav-tabs .active>a:hover,.tabs-left>.nav-tabs .active>a:focus{border-color:#ddd transparent #ddd #ddd;*border-right-color:#ffffff;}
+.tabs-right>.nav-tabs{float:right;margin-left:19px;border-left:1px solid #ddd;}
+.tabs-right>.nav-tabs>li>a{margin-left:-1px;-webkit-border-radius:0 4px 4px 0;-moz-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;}
+.tabs-right>.nav-tabs>li>a:hover,.tabs-right>.nav-tabs>li>a:focus{border-color:#eeeeee #eeeeee #eeeeee #dddddd;}
+.tabs-right>.nav-tabs .active>a,.tabs-right>.nav-tabs .active>a:hover,.tabs-right>.nav-tabs .active>a:focus{border-color:#ddd #ddd #ddd transparent;*border-left-color:#ffffff;}
+
+#voiceBtn {
+  width: 20px;
+  color: transparent;
+  background-color: transparent;
+  transform: scale(2.0, 2.0);
+  -webkit-transform: scale(2.0, 2.0);
+  -moz-transform: scale(2.0, 2.0);
+  border: transparent;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+div[data-role="editor-toolbar"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.dropdown-menu a {
+  cursor: pointer;
+}
+

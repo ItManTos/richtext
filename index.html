@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Html5 Rich Text</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="opensource wysiwyg rich text editor jquery bootstrap execCommand html5">
+    <meta name="description" content="This tiny jQuery Bootstrap RichText plugin turns DIV into a HTML5 rich text editor">
+	
+	<link rel="icon" type="image/ico" href="./favicon.ico">
+	<link rel='stylesheet' href='./css/bootstrap.min.css' />
+	<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+	<link rel='stylesheet' href='./css/font-awesome.min.css' />
+	<!--[if IE 7]>
+	<link rel="stylesheet" href="./css/font-awesome-ie7.min.css">
+	<![endif]-->
+	
+	<link rel='stylesheet' href='./css/style.css' />
+	<script src="./js/jquery.js"></script>
+	<script src="./js/jquery.hotkeys.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+    <script src="./js/richtext.js"></script>
+<style>
+.bs-example {
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+  background-color: #fff;
+  border-color: #ddd;
+  border-width: 1px;
+  border-radius: 4px;
+  border-style: solid;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  position: relative;
+  padding: 15px 0px 0px 0px;
+}
+.bs-example pre {
+	margin-top: 15px;
+	margin-bottom: 0;
+}
+.example {
+	width: 100%;
+	padding: 15px;
+}
+</style>
+</head>
+
+<body >		
+<a href="https://github.com/ItMan70s"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/forkme.png" alt="Fork me on GitHub"></a>
+
+<div class="container">
+	<div class="jumbotron homepage" style="margin-top:40px" align="center">
+		<h1>Html5 Rich Text</h1>
+	<p>Tiny Html5 rich text editor based on <a href="http://twitter.github.com/bootstrap/" target="_blank">bootstrap3</a> and <a href="http://jquery.com/">jQuery</a>, makes it easy to enable switch your input/textarea element into simple WYSIWYG editors. </p>
+	</div>
+	
+  <h1 class="page-header">Usage</h1>
+  
+		<h2>Rich Text without tool bar</h2>
+		<p>Add <code>divinput</code> as class of <code>input</code> to enable it accept rich text.</p>
+		<div class="bs-example"><label>[Sample]</label>
+			<div class="example"><input type='text' class="divinput form-control" name='simpleinput' value='' placeholder="A sample for rich text without tool bar, try drop/copy colourful text to here"></div>
+			<pre><label>[Code]</label>
+			<div class="col-md-0"> &lt;input type='text' class="<b>divinput</b>" name='simpleinput' value='' placeholder="A sample for rich text without tool bar, try drop/copy colourful text to here"&gt; </div>
+		</pre>
+		</div>
+		
+		<h2>Rich Text in one line</h2>
+		<p>Add <code>richtext</code> as class of <code>input</code> to enable it accept rich text.</p>
+		<div class="bs-example"><label>[Sample]</label>
+			<div class="example"><input type='text' class="richtext form-control" name='richtl' value=''></div>
+			<pre><label>[Code]</label>
+			<div class="col-md-0"> &lt;input type='text' class="<b>richtext</b> form-control" name='richtl' value='' &gt; </div>
+		</pre>
+		</div>
+		
+		<h2>Rich Text</h2>
+		<p>Add <code>richtext</code> as class of <code>textarea</code> to enable it accept rich text.</p>
+		<div class="bs-example"><label>[Sample]</label>
+			<div class="example"><textarea class='richtext' name='richt' cols=100 rows=5 ></textarea></div>
+			<pre><label>[Code]</label>
+			<div class="col-md-0"> &lt;textarea class='<b>richtext</b>' name='richt' cols=100 rows=5 &gt; &lt;/textarea&gt;</div>
+		</pre>
+		</div>
+		
+		<h2>Rich Text in one line with source code </h2>
+		<p>Add <code>richtextcode</code> as class of <code>input</code> to enable it accept rich text and could edit its raw data.</p>
+		<div class="bs-example"><label>[Sample]</label>
+			<div class="example"><input type='text' class="richtextcode form-control col-md-12" name='richtcl' value='' placeholder="Click 'code' at top-right to see text source code"></div>
+			<pre><label>[Code]</label>
+			<div class="col-md-0"> &lt;input type='text' class="<b>richtextcode</b> col-md-12" name='richtcl' value='' placeholder="Click 'code' at top-right to see text source code "&gt; </div>
+		</pre>
+		</div>
+		
+		<h2>Rich Text with source code </h2>
+		<p>Add <code>richtextcode</code> as class of <code>textarea</code> to enable it accept rich text and could edit its raw data.</p>
+		<div class="bs-example"><label>[Sample]</label>
+			<div class="example"><textarea class='richtextcode col-md-12' name='richtc' cols=100 rows=6 title="Click 'code' at top-right to see text source code"></textarea></div>
+			<pre><label>[Code]</label>
+			<div class="col-md-0"> &lt;textarea class='<b>richtextcode</b> col-md-12' name='richtc' cols=100 rows=6 title="Click 'code' at top-right to see text source code"&gt; &lt;/textarea&gt;</div>
+		</pre>
+		</div>
+		
+		
+		<h2>Hotkeys for Rich Text</h2>
+		<div class="bs-example"><p>Following hotkeys could be used in any rich text box even there is no such button in tool bar:</p>
+<pre>
+	'ctrl+b': 'bold',
+	'ctrl+i': 'italic',
+	'ctrl+u': 'underline',
+	'ctrl+z': 'undo',
+	'ctrl+y': 'redo',
+	'ctrl+l': 'justify left',
+	'ctrl+r': 'justify right',
+	'ctrl+e': 'justify center',
+	'ctrl+j': 'justify full',
+	'shift+tab': 'outdent',
+	'tab': 'indent'
+</pre>
+		</div>
+		
+		<h2>Options for rich text bar</h2>
+		<div class="bs-example"><p>To use icons, initial richTextOptions in html with local icons like following:</p>
+<pre>
+&lt;script&gt;
+	richTextOptions = {"icons": ["img/b1.png", "img/b2.png", "img/b3.png", "img/b4.png"]};
+&lt;/script&gt;
+</pre>
+		</div>
+		<div class="bs-example"><p>To always show tool bar, richTextOptions["autohide"] = "no" in html or like following:</p>
+<pre>
+&lt;script&gt;
+	richTextOptions = {"autohide": "no"};
+&lt;/script&gt;
+</pre>
+		</div>
+		<div class="bs-example"><p>To hide buttons in tool bar for all rich text, change following:</p>
+<pre>
+&lt;script&gt;
+	richTextOptions["font"] = "no";  //  hide following buttons from <i class="icon-font"></i> to <i class="icon-font" style="background-color: blue;color:silver;"> </i>
+	richTextOptions["sfont"] = "yes"; // hide font, font color, font size, only show simple font style, including: B I U S
+	richTextOptions["p"] = "no";  // hide following buttons from <i class="icon-indent-right"></i> to <i class="icon-align-justify"> </i>
+	richTextOptions["link"] = "no";  // hide following buttons: <i class="icon-link"></i>  <i class="icon-link" style="text-decoration: line-through;"> </i>
+	richTextOptions["img"] = "no";  // hide following button: <i class="icon-picture"> </i>
+	richTextOptions["undo"] = "no"; // hide following buttons: <i class="icon-reply"></i>  <i class="icon-share-alt"> </i>
+	richTextOptions["clear"] = "no"; // hide following button: <i class="icon-remove"></i>
+&lt;/script&gt;
+</pre>
+		</div>
+		
+		<h2>JS/CSS files required </h2>
+		<p><pre class="prettyprint linenums">
+&lt;link rel='stylesheet' href='./css/bootstrap.min.css' /&gt;
+&lt;link rel="stylesheet" href="./css/bootstrap-theme.min.css"&gt;
+&lt;link rel='stylesheet' href='./css/font-awesome.min.css' /&gt;
+&lt;!--[if IE 7]&gt;
+&lt;link rel="stylesheet" href="./css/font-awesome-ie7.min.css"&gt;
+&lt;![endif]--&gt;
+
+&lt;link rel='stylesheet' href='./css/style.css' /&gt;
+&lt;script src="./js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="./js/jquery.hotkeys.js"&gt;&lt;/script&gt;
+&lt;script src="./js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script src="./js/richtext.js"&gt;&lt;/script&gt;
+</pre></p>
+		
+		<h3>Dependencies</h3>
+		<hr />
+		<p>
+			<ul>
+				<li><a href="http://jquery.com/">jQuery</a></li>
+				<li><a href="https://github.com/jeresig/jquery.hotkeys">jQuery HotKeys</a></li>
+				<li><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a></li>
+				<li><a href="http://fontawesome.io">Font Awesome</a></li>
+			</ul>
+		</p> 
+</div>
+  
+
+
+<script>
+	richTextOptions = {"icons": ["img/e1.png", "img/e2.png", "img/e3.png", "img/e4.png", "img/e5.png", "img/e6.png", "img/e7.png", "img/e8.png", 
+	"img/m1.png", "img/m2.png", "img/m3.png", "img/m4.png", "img/c1.png", "img/c2.png", "img/c3.png", "img/c4.png", 
+	"img/a1.png", "img/a2.png", "img/a3.png", "img/a4.png", "img/a5.png", "img/a6.png", "img/a7.png", "img/a8.png", 
+	"img/b1.png", "img/b2.png", "img/b3.png", "img/b4.png", "img/b5.png", "img/b6.png", "img/b7.png", "img/b8.png", 
+	"img/f1.png", "img/f2.png", "img/f3.png", "img/f4.png", "img/f5.png", "img/f6.png", "img/f7.png", "img/f8.png", 
+	"img/t1.png", "img/t2.png", "img/t3.png", "img/t4.png", "img/t5.png", "img/t6.png", "img/t7.png", "img/t8.png"]};
+
+</script>
+
+</body>
+</html>
