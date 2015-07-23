@@ -7,16 +7,14 @@ $(document).ready(function(){
 
 var richTextOptions = {};
 function bindRichText() {
-	var options = richTextOptions;
-	
 	$('.richtextcode').each(function () { 
 		var self = this;
 		$(self).removeClass("richtextcode");
 		var id = $(self).attr("id") || $(self).attr("name");
 		if ($(self).prop("tagName") == "TEXTAREA") {
-			richtextcode(id, fillOptions(self, options));
+			richtextcode(id);
 		} else if ($(self).prop("tagName") == "INPUT") {
-			richtextcodeline(id, fillOptions(self, options));
+			richtextcodeline(id);
 		} else {
 			// TODO
 		}
@@ -26,17 +24,12 @@ function bindRichText() {
 		var self = this;
 		var id = $(self).attr("id") || $(self).attr("name");
 		if ($(self).prop("tagName") == "TEXTAREA") {
-			richtext(id, fillOptions(self, options));
+			richtext(id);
 		} else if ($(self).prop("tagName") == "INPUT") {
-			richtextline(id, fillOptions(self, options));
+			richtextline(id);
 		} else {
 			// TODO
 		}
-	});
-	
-	$('.preview').each(function () { 
-		$(this).removeClass("preview");
-		richtextpreview($(this).attr("id") || $(this).attr("name"), fillOptions(this, options));
 	});
 	
 	$('.divinput').each(divinput);
@@ -73,20 +66,6 @@ function bindRichText() {
 			$(t).change();
 		}
 	});
-}
-
-function fillOptions(input, options) {
-	if (!input) return options;
-	var udef = $(input).attr("options");
-	if (!udef) return options;
-	
-	var opts = (udef + "").toJSON();
-	if (!opts) return options;
-	
-	for (var i in opts) {
-		options[i] = opts[i];
-	}
-	return options;
 }
 
 $(document).on('click', '.switch-icon [data-toggle="tab"]', function(){
@@ -136,8 +115,6 @@ function imginput(id, userOptions) {
 '</div>\n';
 	
 	$(toolbar).insertAfter(id);
-	var html = '<div class="message hide"></div>\n';
-	$(html).insertAfter(id);
 	var input = $($(id)[0].parentNode).find(".editable");
 	input.richtextbar(userOptions);
 	input.html($(id).val());
@@ -157,44 +134,6 @@ function richtext(id, userOptions) {
 	return __richtext(id, userOptions);
 }
 
-function richtextpreview(id, userOptions) {
-	var oid = id;
-	id = $("#" + id)[0] ? "#" + id : "[name='" + id + "']";
-	
-	var von = "";
-	var mon = "";
-	if ($(id).attr('preview') == 'yes') {
-		von = " active";
-		mon = "";
-	} else {
-		von = "";
-		mon = " active";
-	}
-	$(id).addClass("mvc-group-m-preview");
-	$(id).wrap( '<div class="tab-content"><div class="tab-pane' + mon + '" id="' + oid + '-m"> </div></div>');
-	
-	var html = '<div class="tab-pane switch-icon">\n' + 
-			'	<a class="btn' + von + '" href="#' + oid + '-v" data-toggle="tab" title="esay mode">view</a>\n' + 
-			'	<a class="btn' + mon + '" href="#' + oid + '-m" data-toggle="tab" title="expert mode">code</a>\n' + 
-			'</div>\n' + 
-			'<div class="tab-pane' + von + '" id="' + oid + '-v" ><div id="' + oid + '-v-e" class="form-control" style="' + __getEidtorStyle(id) + '" title="' + ($(id).attr("title") || $(id).attr("placeholder") || "") + '"></div>\n' + 
-			'</div>\n';
-	$(html).insertBefore('#' + oid + '-m');
-	html = '<div class="message hide"></div>\n';
-	$(html).insertAfter('#' + oid + '-m');
-	
-	function syncup() {
-		var source = id;
-		var target = '#' + oid + '-v-e';
-		if ($(id).attr("onview") && $(id).attr("onview").length > 0) {
-			eval($(id).attr("onview") + "('" + source.replace(/'/g, "\\'") + "', '" + target.replace(/'/g, "\\'") + "');");
-		} else {
-			$(target).html($(source).val());
-		}
-	}
-	$(document).on("blur", id, syncup);
-	syncup();
-}
 function richtextcodeline(id,  options) {
 	userOptions = $.extend({}, options);
 	userOptions["p"] = "no";
@@ -205,9 +144,10 @@ function richtextcodeline(id,  options) {
 }
 
 function richtextcode(id,  options) {
-	userOptions = $.extend({}, options);
 	var oid = id;
 	id = $("#" + id)[0] ? "#" + id : "[name='" + id + "']";
+	
+	userOptions = $.extend({}, richTextOptions, options, ($(id).attr("options") + "").toJSON());
 	
 	$(id).addClass("mvc-group-m");
 	$(id).wrap( '<div class="richtext-zone tab-content ' + ($(id).attr("class").indexOf("col-") > -1 ? $(id).attr("class").replace(/(.*)(col\-[^ ]+)(.*)/gi, "$2") : "") + '"><div class="tab-pane" id="' + oid + '-m"> </div></div>');
@@ -219,11 +159,9 @@ function richtextcode(id,  options) {
 			'<div class="tab-pane mvc-group-v active" id="' + oid + '-v" ><div id="' + oid + '-v-e" target-obj="' + id + '" class="editable" style="' + __getEidtorStyle(id) + '" title="' + ($(id).attr("title") || $(id).attr("placeholder") || "") + '"></div>\n' + 
 			'</div>\n';
 	$(html).insertBefore('#' + oid + '-m');
-	html = '<div class="message hide"></div>\n';
-	$(html).insertAfter('#' + oid + '-m');
 	
 	userOptions["bottom"] = "yes";
-	userOptions["style"] = "z-index: 9; position: absolute; right: 15px; bottom: -35px; -moz-opacity:0.9; filter:alpha(opacity=90); opacity:0.9;";
+	userOptions["style"] = "z-index: 9; position: absolute; right: 15px; bottom: -30px; -moz-opacity:0.9; filter:alpha(opacity=90); opacity:0.9;";
 
 	var input = $('#' + oid + '-v-e');
 	var rtn = input.richtextbar(userOptions);
@@ -233,18 +171,17 @@ function richtextcode(id,  options) {
 
 /* source codes for rich text */
 function __richtext(id, options) {
-	userOptions = $.extend({}, options);
 	id = $("#" + id)[0] ? "#" + id : "[name='" + id + "']";
 	if (!$(id)[0]) return;
+	
+	userOptions = $.extend({}, richTextOptions, options, ($(id).attr("options") + "").toJSON());
 	
 	$(id).wrap( "<div class='richtext-zone " + ($(id).attr("class").indexOf("col-") > -1 ? $(id).attr("class").replace(/(.*)(col\-[^ ]+)(.*)/gi, "$2") : "") + "'></div>");
 	$('<div target-obj="' + id + '" class="editable" style="' + __getEidtorStyle(id) + '" title="' + ($(id).attr("title") || $(id).attr("placeholder") || "") + '"></div>').insertBefore(id);
 	$(id).hide();
 	
-	userOptions["style"] = "z-index: 9; position: absolute; right: 15px; top: -35px; -moz-opacity:0.9; filter:alpha(opacity=90); opacity:0.9;";
+	userOptions["style"] = "z-index: 9; position: absolute; right: 15px; top: -30px; -moz-opacity:0.9; filter:alpha(opacity=90); opacity:0.9;";
 	
-	var html = '<div class="message hide"></div>\n';
-	$(html).insertAfter(id);
 	var input = $($(id)[0].parentNode).find(".editable");
 	var rtn = input.richtextbar(userOptions);
 	input.html($(id).val());
@@ -393,9 +330,16 @@ function showTools(zone, display, focus) {
 		var toolbarBtnSelector = 'a[data-edit],button[data-edit],input[type=button][data-edit]'.replace(/edit/g, options.commandRole);
 		
 		bar.find(toolbarBtnSelector).click(function () {
+			var btn = $(this);
 			selection(editor).restore();
 			editor.focus();
-			tbar.execCommand($(this).data(options.commandRole));
+			if (btn.data(options.commandRole) == "createLink") {
+				var ipt = btn.parents(".input-group").find("input");
+				tbar.execCommand("createLink " + ipt.val());
+				ipt.val("http://");
+			} else {
+				tbar.execCommand(btn.data(options.commandRole));
+			}
 			selection(editor).save();
 		});
 		bar.find('[data-toggle=dropdown]').click(function() {selection(editor).restore();});
@@ -413,9 +357,11 @@ function showTools(zone, display, focus) {
 				bar.find(toolbarBtnSelector).each(function () {
 					var command = $(this).data(options.commandRole);
 					if (document.queryCommandState(command)) {
+						$(this).removeClass("btn-default");
 						$(this).addClass(options.active);
 					} else {
 						$(this).removeClass(options.active);
+						$(this).addClass("btn-default");
 					}
 				});
 			}
@@ -474,7 +420,7 @@ function initBar(id, options) {
 	userOptions["style"] = userOptions["style"] || "";
 	userOptions["sfont"] = userOptions["sfont"] || "no";
 	
-	userOptions["error"] = function(reason, detail) {showRichTextError($(id).parents(".richtext-zone").find(".message"), reason, detail);}
+	userOptions["error"] = function(reason, detail) {showRichTextError($(id).parents(".richtext-zone"), reason, detail);}
 	
 	// TODO switch options for: font style color algin list link img
 	var toolbar = '' + 
@@ -484,11 +430,11 @@ function initBar(id, options) {
 		
 	if (userOptions["sfont"] != "yes") {
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group">\n' + 
 '	<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="Font" data-original-title="Font"><b><i class="icon-font"></i></b><b class="icon-caret-down"></b></a>\n' + 
 '	<ul class="dropdown-menu"><li></li></ul>\n' + 
 '</div>\n' + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group" style="margin-left: 0px;">\n' + 
 '<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size"><b><i class="icon-text-width"></i></b><b class="icon-caret-down"></b></a>\n' + 
 '<ul class="dropdown-menu">\n' + 
 '	<li><a data-edit="fontSize 1"><font size="1">Very small</font></a></li>\n' + 
@@ -502,13 +448,13 @@ function initBar(id, options) {
 '</div>\n';
 	}
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group" style="margin-left: 0px;">\n' + 
 '<a class="btn btn-default" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><b><i class="icon-bold"></i></b></a>\n' + 
 '<a class="btn btn-default" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><b><i class="icon-italic"></i></b></a>\n' + 
 '<a class="btn btn-default" data-edit="underline" title="" data-original-title="Underline (Ctrl/Cmd+U)"><b><i class="icon-underline"></i></b></a>\n' + 
 '<a class="btn btn-default" data-edit="strikethrough" title="" data-original-title="Strikethrough"><b><i class="icon-strikethrough"></i></b></a>\n' + 
 '</div>\n' + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group" style="margin-left: 0px;">\n' + 
 '<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Fore Color"><b style="color:blue;"><u><i class="icon-font"></i></u></b><b class="icon-caret-down"></b></a>\n' + 
 '<ul class="dropdown-menu fore-color" style="width:230px">\n' + 
 '</ul>\n' + 
@@ -516,7 +462,7 @@ function initBar(id, options) {
 
 	if (userOptions["sfont"] != "yes") {
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group" style="margin-left: 0px;">\n' + 
 '<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;color:silver;"><u><i class="icon-font"></i></u></b><b class="icon-caret-down"></b></a>\n' + 
 '<ul class="dropdown-menu Back-Color" style="width:230px;padding:2px;">\n' + 
 '</ul>\n' + 
@@ -528,17 +474,14 @@ function initBar(id, options) {
 	
 	if (userOptions["p"] != "no") {
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group">\n' + 
+'<a class="btn btn-default" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="icon-list-ul"> </i></a>\n' + 
+'<a class="btn btn-default" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="icon-list-ol"> </i></a>\n' + 
 '<a class="btn btn-default" data-edit="indent" title="" data-original-title="Indent (Tab)"><i class="icon-indent-right"> </i></a>\n' + 
 '<a class="btn btn-default" data-edit="outdent" title="" data-original-title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"> </i></a>\n' + 
 '</div>\n' + 
 '\n' + 
-'<div class="btn-group btn-group-sm">\n' + 
-'<a class="btn btn-default" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="icon-list-ul"> </i></a>\n' + 
-'<a class="btn btn-default" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="icon-list-ol"> </i></a>\n' + 
-'</div>\n' + 
-'\n' + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group">\n' + 
 '<a class="btn btn-default" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"> </i></a>\n' + 
 '<a class="btn btn-default" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"> </i></a>\n' + 
 '<a class="btn btn-default" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"> </i></a>\n' + 
@@ -547,20 +490,21 @@ function initBar(id, options) {
 '\n';
 	}
 	if (userOptions["icons"]) {
-		toolbar += '<div class="btn-group btn-group-sm">\n' + 
+		toolbar += '<div class="btn-group">\n' + 
 '<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Icons"><img src="' + userOptions["icons"][0] + '"><b class="icon-caret-down"></b></a>\n' + 
-'<ul class="dropdown-menu" style="width:310px;padding:4px">\n' + 
+'<ul class="dropdown-menu" style="width:244px;padding:4px">\n' + 
 '	<li> \n' + 
-'	<div class="btn-group btn-group-sm"><a class="btn hide" ></a>\n';
+'	<div class="btn-group btn-group-xs"><a class="btn hide" ></a>\n';
 		for (var i in userOptions["icons"]) {
 			toolbar += '<a class="btn btn-default" data-edit="insertimage ' + userOptions["icons"][i] + '"><img src="' + userOptions["icons"][i] + '"></a>\n';
 		}
 		toolbar += '	</div></li></ul>\n</div>\n\n';
 	}
+	
 	if (userOptions["img"] != "no") {
 		sqno++;
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group"' + ((userOptions["icons"]) ? ' style="margin-left: 0px;"' : '') + '>\n' + 
 '<a class="btn btn-default" title="" id="picture_uuid_' + sqno + '" data-original-title="Insert picture (or just drag &amp; drop)"><b><i class="icon-picture"> </i></b>\n' + 
 '<input type="file" data-role="magic-overlay" data-target="#picture_uuid_' + sqno + '" data-edit="insertImage" accept="image/*" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 33px; height: 28px;"></a>\n' + 
 '</div>\n' + 
@@ -569,16 +513,20 @@ function initBar(id, options) {
 
 	if (userOptions["link"] != "no") {
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group"' + ((userOptions["icons"] || userOptions["img"] != "no") ? ' style="margin-left: 0px;"' : '') + '>\n' + 
 '<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Hyperlink"><i class="icon-link"> </i></a>\n' + 
-'<div class="dropdown-menu input-append"><input class="span2" placeholder="URL" type="text" data-edit="createLink"><button class="btn btn-default" type="button">Add</button></div>\n' + 
+'<ul class="dropdown-menu col-md-6"><li class="input-group "><input type="text" class="form-control" value="http://"><span class="input-group-btn"><a class="btn btn-default" data-edit="createLink">Link</a></span></li></ul>\n' + 
 '<a class="btn btn-default" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="icon-link" style="text-decoration: line-through;"> </i></a>\n' + 
 '</div>\n' + 
 '\n';
+
+
+      
+      
 	}
 	if (userOptions["undo"] != "no") {
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group">\n' + 
 '<a class="btn btn-default" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i class="icon-reply"> </i></a>\n' + 
 '<a class="btn btn-default" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="icon-share-alt"> </i></a>\n' + 
 '</div>\n' + 
@@ -586,12 +534,12 @@ function initBar(id, options) {
 	}
 	if (userOptions["clear"] != "no") {
 	toolbar += "" + 
-'<div class="btn-group btn-group-sm">\n' + 
+'<div class="btn-group" style="margin-left: 0px;">\n' + 
 '<a class="btn btn-default" data-edit="removeFormat" title="" data-original-title="Clear Format"><i class="icon-remove"> </i></a>\n' + 
 '</div>\n' + 
 '\n';
 	}
-	toolbar += '</div>\n';
+	toolbar += '<br /><div class="alert-message" style="position: absolute; left:4px; right: 0px; top: 30px; display: block;"></div></div>\n';
 	if (userOptions["bottom"] == "yes") {
 		$(toolbar).insertAfter(id);
 	} else {
@@ -672,7 +620,7 @@ function initBar(id, options) {
 		htmFore += '	</div></li>\n';
 	}
 	htmBack = htmFore.replace(/ForeColor/g, "BackColor") + '	<li>\n' + 
-				'	<div class="btn-group btn-group-sm">\n' + 
+				'	<div class="btn-group">\n' + 
 				'	<a class="color-box" data-edit="BackColor transparent" style="background-color: transparent;margin-left:200px;" title="No Color">X</a>\n' + 
 				'	</div>\n' + 
 				'	</li>\n';
@@ -701,11 +649,13 @@ function initBar(id, options) {
 	function showRichTextError(zone, reason, detail) {
 		var msg='';
 		if (reason==='unsupported-file-type') { 
-			msg = "Unsupported format " + detail;
+			reason = "Unsupported format";
 		} else {
 			console.log("error uploading file", reason, detail);
 		}
-		zone.html('<div class="alert alert-danger"> <button type="button" class="close" data-dismiss="alert">&times;</button><strong>File upload error</strong> '+msg+' </div>');
+		msg = '<strong>Reason:</strong>&nbsp;' + reason + '&nbsp;&nbsp;<strong>Detail:</strong>&nbsp;' + detail ;
+		msg = '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + msg + '</div>';
+		zone.find(".alert-message").html(msg);
 	};
 }(window.jQuery));
 
@@ -748,4 +698,16 @@ function selection(target) {
 		editor.data("selection-color", color);
 	};
 	return this;
+}
+
+String.prototype.toJSON = function() {
+	try {
+		if (!this.startsWith("{")) {
+			return eval("({"+ this +"})"); 
+		} else {
+			return eval("("+ this +")"); 
+		}
+	} catch (msg) {
+		return {};
+	}
 }
