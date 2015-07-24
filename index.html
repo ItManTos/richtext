@@ -57,16 +57,7 @@
 	</div>
 	
   <h1 class="page-header">Usage</h1>
-  
-		<h2>Rich Text without tool bar</h2>
-		<p>Add <code>divinput</code> as class of <code>input</code> to enable it accept rich text.</p>
-		<div class="bs-example"><label>[Sample]</label>
-			<div class="example"><input type='text' class="divinput form-control" name='simpleinput' value='' placeholder="A sample for rich text without tool bar, try drop/copy colourful text to here"></div>
-			<pre><label>[Code]</label>
-			<div class="col-md-0"> &lt;input type='text' class="<b>divinput</b>" name='simpleinput' value='' placeholder="A sample for rich text without tool bar, try drop/copy colourful text to here"&gt; </div>
-		</pre>
-		</div>
-		
+  		
 		<h2>Rich Text in one line</h2>
 		<p>Add <code>richtext</code> as class of <code>input</code> to enable it accept rich text.</p>
 		<div class="bs-example"><label>[Sample]</label>
@@ -85,6 +76,20 @@
 		</pre>
 		</div>
 		
+		<h2>Rich Text without tool bar</h2>
+		<p>Add <code>divinput</code> as class of <code>input</code> or <code>textarea</code> to enable it accept rich text.</p>
+		<div class="bs-example"><label>[Sample]</label>
+			<div class="example">
+			<input type='text' class="divinput form-control" name='simpleinput' value='' placeholder="A sample for rich text without tool bar, try drop/copy colourful text to here">
+			<textarea class='divinput' name='simpleinput2' cols=100 rows=3 placeholder="A textarea sample "></textarea>
+			</div>
+			<pre><label>[Code]</label>
+			<div class="col-md-0">&lt;input type='text' class="<b>divinput</b>" name='simpleinput' value='' placeholder="A sample for rich text without tool bar, try drop/copy colourful text to here"&gt;
+<br />&lt;textarea class='<b>divinput</b>' name='simpleinput2' cols=100 rows=3 placeholder="A textarea sample " &gt;&lt;/textarea&gt;
+			</div>
+		</pre>
+		</div>
+		
 		<h2>Rich Text in one line with source code </h2>
 		<p>Add <code>richtextcode</code> as class of <code>input</code> to enable it accept rich text and could edit its raw data.</p>
 		<div class="bs-example"><label>[Sample]</label>
@@ -100,6 +105,22 @@
 			<div class="example"><textarea class='richtextcode col-md-12' name='richtc' cols=100 rows=6 title="Click 'code' at top-right to see text source code"></textarea></div>
 			<pre><label>[Code]</label>
 			<div class="col-md-0"> &lt;textarea class='<b>richtextcode</b> col-md-12' name='richtc' cols=100 rows=6 title="Click 'code' at top-right to see text source code"&gt; &lt;/textarea&gt;</div>
+		</pre>
+		</div>
+		
+		<h2>Rich Text Group with one Tool bar </h2>
+		<p>Add <code>divinputs</code> as class of <code>div</code> and specified its targets by <code>rt-selector</code> to provide a common tool bar for all rich text inputs.</p>
+		<div class="bs-example"><label>[Sample]</label>
+			<div class="example"><div class='divinputs' rt-selector='.issue_item' id='issue-zone'>
+			  <div class="form-group"><label for="i_title">Title</label><input type='text' class="divinput issue_item" id='i_title' value='' placeholder="a title for issue"></div>
+			  <div class="form-group"><label for="i_description">Description</label><textarea class="divinput issue_item" id='i_description' cols=100 rows=6 value='' placeholder="detail description for issue"></textarea></div>
+			</div></div>
+
+			<pre><label>[Code]</label>
+&lt;div class='<b>divinputs</b>' <b>rt-selector='.issue_item'</b> id='issue-zone'&gt;
+&lt;div class="form-group"&gt;&lt;label for="i_title"&gt;Title&lt;/label&gt;&lt;input type='text' class="divinput issue_item" id='i_title' value='' placeholder="a title for issue"&gt;&lt;/div&gt;
+&lt;div class="form-group"&gt;&lt;label for="i_description"&gt;Description&lt;/label&gt;&lt;textarea class="divinput issue_item" id='i_description' cols=100 rows=6 value='' placeholder="detail description for issue"&gt;&lt;/textarea&gt;&lt;/div&gt;
+&lt;/div&gt;
 		</pre>
 		</div>
 		
@@ -147,6 +168,12 @@
 	richTextOptions["undo"] = "no"; // hide following buttons: <i class="icon-reply"></i>  <i class="icon-share-alt"> </i>
 	richTextOptions["clear"] = "no"; // hide following button: <i class="icon-remove"></i>
 &lt;/script&gt;
+</pre>
+		</div>
+		
+		<div class="bs-example"><p>To hide buttons in tool bar for current rich text, add options into attribute, like:</p>
+<pre>
+&lt;textarea class='<b>richtextcode</b> col-md-12' cols=100 rows=6 <b>options='autohide:"no", sfont:"yes", img:"no", link:"no", undo:"no"'</b> &gt; &lt;/textarea&gt;
 </pre>
 		</div>
 		

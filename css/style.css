@@ -9,7 +9,7 @@ a.color-box:active, a.color-box:hover {
 
 .btn-toolbar > .btn-group > .btn {
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
   height: 30px;
 }

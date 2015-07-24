@@ -43,6 +43,15 @@ Usage
 ``` javascript
  // Add richtextcode as class of textarea to enable it accept rich text and could edit its raw data.
 <textarea class='richtextcode col-md-12' name='richtc' cols=100 rows=6 title="Click 'code' at top-right to see text source code"> </textarea>
+``` 	
+
+* Rich Text with source code
+``` javascript
+ // Add <code>divinputs</code> as class of <code>div</code> and specified its targets by <code>rt-selector</code> to provide a common tool bar for all rich text inputs.
+<div class='divinputs' rt-selector='.issue_item' id='issue-zone'>
+  <div class="form-group"><label for="i_title">Title</label><input type='text' class="divinput issue_item" id='i_title' value='' placeholder="a title for issue"></div>
+  <div class="form-group"><label for="i_description">Description</label><textarea class="divinput issue_item" id='i_description' cols=100 rows=6 value='' placeholder="detail description for issue"></textarea></div>
+</div></div>
 ``` 
 	
 * Hotkeys for Rich Text

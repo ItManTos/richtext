@@ -1,9 +1,13 @@
-/* http://itman70s.github.io/ */
-
+/* ========================================================================
+ * Rich Text: richtext.js v1.1
+ * http://itman70s.github.io/
+ * ======================================================================== */
+ 
 $(document).ready(function(){
 	$(document).bindhotkeys();
 	bindRichText();
 });
+var richtext_version = 1.1;
 
 var richTextOptions = {};
 function bindRichText() {
@@ -30,6 +34,12 @@ function bindRichText() {
 		} else {
 			// TODO
 		}
+	});
+	$('.divinputs').each(function () {
+		$(this).removeClass("divinputs");
+		var self = this;
+		var id = $(self).attr("id") || $(self).attr("name");
+		divinputs(id);
 	});
 	
 	$('.divinput').each(divinput);
@@ -93,13 +103,27 @@ function divinput() {
 			id = "#divinput" + sqno;
 		}
 	}
-	$(self).hide();
 	
-	var placeholder = $(self).attr("placeholder") || $(self).attr("title");
-	var toolbar = '<div class="editable ' + ($(self).attr("class") || '') + '" contenteditable="true" target-input="' + id + '" title="' + placeholder.replace(/"/g, '\\"') + '">' + ($(self).val() || placeholder) + '</div>\n';
+	$(id).wrap( "<div class='richinput-zone " + ($(id).attr("class").indexOf("col-") > -1 ? $(id).attr("class").replace(/(.*)(col\-[^ ]+)(.*)/gi, "$2") : "") + "'></div>");
+	var placeholder = $(self).attr("placeholder") || $(self).attr("title") || "";
+	var toolbar = '<div class="editable ' + ($(self).attr("class") || '') + '" style="' + __getEidtorStyle(id) + '"  contenteditable="true" target-input="' + id + '" title="' + placeholder.replace(/"/g, '\\"') + '">' + ($(self).val() || placeholder) + '</div>\n';
 	$(toolbar).insertAfter(id);
+	
+	$(id).hide();
 }
+/* source codes for rich text */
+function divinputs(id, options) {
+	id = $("#" + id)[0] ? "#" + id : "[name='" + id + "']";
+	if (!$(id)[0]) return;
+	
+	userOptions = $.extend({}, richTextOptions, {autohide:"no"},options, ($(id).attr("options") + "").toJSON());
+	//userOptions["style"] = "z-index: 9; position: absolute; right: 15px; top: -30px; -moz-opacity:0.9; filter:alpha(opacity=90); opacity:0.9;";
+	
+	$(id).wrap( "<div class='richtext-zone " + ($(id).attr("class").indexOf("col-") > -1 ? $(id).attr("class").replace(/(.*)(col\-[^ ]+)(.*)/gi, "$2") : "") + "'></div>");
+	var rtn = $(id).richtextbar(userOptions);
 
+	return rtn;
+}
 var richtext_editor = $(document);
 
 /* source codes for one-line rich text */
@@ -128,6 +152,7 @@ function richtextline(id, options) {
 	return __richtext(id, userOptions);
 	
 }
+
 
 /* source codes for rich text */
 function richtext(id, userOptions) {
@@ -187,6 +212,7 @@ function __richtext(id, options) {
 	input.html($(id).val());
 	return rtn;
 }
+
 function __getEidtorStyle(id) {
 	var height = 34;
 	
@@ -315,6 +341,15 @@ function showTools(zone, display, focus) {
 			error: function (reason, detail) { console.log("File upload error", reason, detail); }
 		};
 		
+		if ($(editor).attr("rt-selector")) {
+			var rts = editor.find($(editor).attr("rt-selector"));
+			if (rts.length > 0) {
+				rts.on('focus', function (e) {
+					editor = $(this);
+				});
+				editor = rts.first();
+			}
+		}
 		options = $.extend(options, userOptions);
 		
 		if (options.drop) {
@@ -360,8 +395,9 @@ function showTools(zone, display, focus) {
 						$(this).removeClass("btn-default");
 						$(this).addClass(options.active);
 					} else {
-						$(this).removeClass(options.active);
-						$(this).addClass("btn-default");
+						if ($(this).attr("class")) {
+							$(this).attr("class", $(this).attr("class").replace(options.active, "btn-default"));
+						}
 					}
 				});
 			}
@@ -455,7 +491,7 @@ function initBar(id, options) {
 '<a class="btn btn-default" data-edit="strikethrough" title="" data-original-title="Strikethrough"><b><i class="icon-strikethrough"></i></b></a>\n' + 
 '</div>\n' + 
 '<div class="btn-group" style="margin-left: 0px;">\n' + 
-'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Fore Color"><b style="color:blue;"><u><i class="icon-font"></i></u></b><b class="icon-caret-down"></b></a>\n' + 
+'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Fore Color" style="color:blue;"><u><i class="icon-font"></i></u><b class="icon-caret-down"></b></a>\n' + 
 '<ul class="dropdown-menu fore-color" style="width:230px">\n' + 
 '</ul>\n' + 
 '</div>\n';
@@ -463,7 +499,7 @@ function initBar(id, options) {
 	if (userOptions["sfont"] != "yes") {
 	toolbar += "" + 
 '<div class="btn-group" style="margin-left: 0px;">\n' + 
-'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;color:silver;"><u><i class="icon-font"></i></u></b><b class="icon-caret-down"></b></a>\n' + 
+'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;color:#EEE;"><i class="icon-font"></i><b class="icon-caret-down"></b></b></a>\n' + 
 '<ul class="dropdown-menu Back-Color" style="width:230px;padding:2px;">\n' + 
 '</ul>\n' + 
 '</div>\n' + 
@@ -534,7 +570,7 @@ function initBar(id, options) {
 	}
 	if (userOptions["clear"] != "no") {
 	toolbar += "" + 
-'<div class="btn-group" style="margin-left: 0px;">\n' + 
+'<div class="btn-group"' + ((userOptions["undo"] != "no") ? ' style="margin-left: 0px;"' : '') + '>\n' + 
 '<a class="btn btn-default" data-edit="removeFormat" title="" data-original-title="Clear Format"><i class="icon-remove"> </i></a>\n' + 
 '</div>\n' + 
 '\n';
