@@ -106,7 +106,7 @@ function divinput() {
 	
 	$(id).wrap( "<div class='richinput-zone " + ($(id).attr("class").indexOf("col-") > -1 ? $(id).attr("class").replace(/(.*)(col\-[^ ]+)(.*)/gi, "$2") : "") + "'></div>");
 	var placeholder = $(self).attr("placeholder") || $(self).attr("title") || "";
-	var toolbar = '<div class="editable ' + ($(self).attr("class") || '') + '" style="' + __getEidtorStyle(id) + '"  contenteditable="true" target-input="' + id + '" title="' + placeholder.replace(/"/g, '\\"') + '">' + ($(self).val() || placeholder) + '</div>\n';
+	var toolbar = '<div class="editable ' + ($(id).attr("class") || '').replace(/(col\-[^ ]+)/gi, "") + '" style="' + __getEidtorStyle(id) + '"  contenteditable="true" target-input="' + id + '" title="' + placeholder.replace(/"/g, '\\"') + '">' + ($(self).val() || placeholder) + '</div>\n';
 	$(toolbar).insertAfter(id);
 	
 	$(id).hide();
@@ -220,7 +220,7 @@ function __getEidtorStyle(id) {
 		height = 34 + 20 * (($(id).attr("rows") || 2) -1);
 		height = 'height: ' + height + 'px;overflow-y: scroll;';
 	} else if ($(id).prop("tagName") == "INPUT") {
-		height = 'height: ' + 34 + 'px;';
+		height = 'min-height: ' + 34 + 'px;';
 	} else {
 		height = $(id).innerHeight();
 		if (height < 34) {
