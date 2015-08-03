@@ -21,6 +21,7 @@
 	<script src="./js/jquery.hotkeys.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
     <script src="./js/richtext.js"></script>
+    <script src="../js/itman70s.menu.js"></script>
 <style>
 body { margin-top: 70px; }
 .talk {
@@ -46,7 +47,7 @@ body { margin-top: 70px; }
 	color: #000;
 	background-color: #ddd;
 }
-.tooltip-arrow {
+.talk > .tooltip-arrow {
 	width:5px; 
 	height:10px;
 }
@@ -66,25 +67,21 @@ body { margin-top: 70px; }
 	<a class="navbar-brand" href="http://itman70s.github.io/richtext">Rich Text</a>
 	<ul class="nav navbar-nav">
 		<li class="active"><a href="#">Home</a></li>
-		<li><a href="start.html" data-tooltip="yes" data-placement="bottom" title="Demo, Usage">Get Started</a></li>
+		<li><a href="start.html" data-placement="bottom" title="Demo, Usage">Get Started</a></li>
 		<li>|</li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext" data-tooltip="yes" data-placement="bottom" title="Open in github">Code   </a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/issues" data-tooltip="yes" data-placement="bottom" title="Open in github">Issues </a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/releases" data-tooltip="yes" data-placement="bottom" title="Open in github">Download</a></li>
+		<li><a target="_blank" href="https://github.com/ItMan70s/richtext" data-placement="bottom" title="Open in github">Code   </a></li>
+		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/issues" data-placement="bottom" title="Open in github">Issues </a></li>
+		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/releases" data-placement="bottom" title="Open in github">Download</a></li>
 	</ul>
 	<ul class="nav navbar-nav pull-right">
 		<li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-tooltip="yes" data-placement="right" title="All about ItMan70s.github.io"><img class="pull-left" src="img/logo_g.png"> <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="http://itman70s.github.io/" data-tooltip="yes" data-placement="left" title="To ItMan70s.github.io">ITMan70s</a></li>
-            <li><a href="https://github.com/ItMan70s/tangrammy" data-tooltip="yes" data-placement="left" title="To Tangrammy page">Tangrammy</a></li>
-            <li><a href="http://itman70s.github.io/richtext" data-tooltip="yes" data-placement="left" title="To github.io/richtext">Rich Text</a></li>
-            <li><a href="http://itman70s.github.io/about.html" data-tooltip="yes" data-placement="left" title="To know itman70s?">About</a></li>
+          <a href="javascript:;" class="dropdown-toggle itman70s_menu" data-toggle="dropdown" data-placement="right" title="All about ItMan70s.github.io"><img class="pull-left" src="img/logo_w.png"> <b class="caret"></b></a>
+          <ul class="dropdown-menu itman70s_sub_menu">
           </ul>
         </li>
 	</ul>
 </div>
-<a href="https://github.com/ItMan70s"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/forkme.png" data-tooltip="yes" data-placement="left" title="Fork me on GitHub"></a>
+<a href="https://github.com/ItMan70s"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/img/forkme.png" data-placement="left" title="Fork me on GitHub"></a>
 </nav>
 <div class="container">
 	<div class="jumbotron homepage text-center">
@@ -181,7 +178,7 @@ body { margin-top: 70px; }
 
 
 <script>
-	$('[data-tooltip="yes"]').tooltip();
+	$('[data-placement]').tooltip();
 </script>
 
 </body>

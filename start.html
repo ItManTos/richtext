@@ -21,6 +21,7 @@
 	<script src="./js/jquery.hotkeys.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
     <script src="./js/richtext.js"></script>
+    <script src="../js/itman70s.menu.js"></script>
 <style>
 .bs-example {
   width: 100%;
@@ -57,24 +58,20 @@ body { margin-top: 70px; }
 	<a class="navbar-brand" href="http://itman70s.github.io/richtext">Rich Text</a>
 	<ul class="nav navbar-nav">
 		<li><a href="index.html">Home</a></li>
-		<li class="active"><a href="start.html" data-tooltip="yes" data-placement="bottom" title="Demo, Usage">Get Started</a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext" data-tooltip="yes" data-placement="bottom" title="Open in github">Code   </a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/issues" data-tooltip="yes" data-placement="bottom" title="Open in github">Issues </a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/releases" data-tooltip="yes" data-placement="bottom" title="Open in github">Download</a></li>
+		<li class="active"><a href="start.html" data-placement="bottom" title="Demo, Usage">Get Started</a></li>
+		<li><a target="_blank" href="https://github.com/ItMan70s/richtext" data-placement="bottom" title="Open in github">Code   </a></li>
+		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/issues" data-placement="bottom" title="Open in github">Issues </a></li>
+		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/releases" data-placement="bottom" title="Open in github">Download</a></li>
 	</ul>
 	<ul class="nav navbar-nav pull-right">
 		<li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-tooltip="yes" data-placement="right" title="All about ItMan70s.github.io"><img class="pull-left" src="img/logo_g.png"> <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="http://itman70s.github.io/about.html" data-tooltip="yes" data-placement="left" title="To ItMan70s.github.io">ITMan70s</a></li>
-            <li><a href="https://github.com/ItMan70s/tangrammy" data-tooltip="yes" data-placement="left" title="To Tangrammy page">Tangrammy</a></li>
-            <li><a href="http://itman70s.github.io/richtext" data-tooltip="yes" data-placement="left" title="To github.io/richtext">Rich Text</a></li>
-            <li><a href="http://itman70s.github.io/about.html" data-tooltip="yes" data-placement="left" title="To know itman70s?">About</a></li>
+          <a href="javascript:;" class="dropdown-toggle itman70s_menu" data-toggle="dropdown" data-placement="right" title="All about ItMan70s.github.io"><img class="pull-left" src="img/logo_w.png"> <b class="caret"></b></a>
+          <ul class="dropdown-menu itman70s_sub_menu">
           </ul>
         </li>
 	</ul>
 </div>
-<a href="https://github.com/ItMan70s"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/forkme.png" data-tooltip="yes" data-placement="left" title="Fork me on GitHub"></a>
+<a href="https://github.com/ItMan70s"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/img/forkme.png" data-placement="left" title="Fork me on GitHub"></a>
 </nav>
 <div class="container">
 	<a name="basic"></a>
@@ -232,7 +229,7 @@ richTextOptions["clear"] = "no"; // hide following button: <i class="icon-remove
 
 
 <script>
-	$('[data-tooltip="yes"]').tooltip();
+	$('[data-placement]').tooltip();
 	richTextOptions = {"icons": ["img/e1.png", "img/e2.png", "img/e3.png", "img/e4.png", "img/e5.png", "img/e6.png", "img/e7.png", "img/e8.png", 
 	"img/m1.png", "img/m2.png", "img/m3.png", "img/m4.png", "img/c1.png", "img/c2.png", "img/c3.png", "img/c4.png", 
 	"img/a1.png", "img/a2.png", "img/a3.png", "img/a4.png", "img/a5.png", "img/a6.png", "img/a7.png", "img/a8.png", 
