@@ -24,9 +24,9 @@ $(document).ready(function(){
     }
   }
     
-  Selection.prototype.save = function () { this.$element.data("bs.selection", this.get()); };
+  Selection.prototype.save = function () { this.$element.data("bs.selection.bs.range", this.get()); };
   Selection.prototype.restore = function () {
-    var stn = this.$element.data("bs.selection");
+    var stn = this.$element.data("bs.selection.bs.range");
     if (stn) {
       try {
         var sel = window.getSelection();
@@ -534,6 +534,8 @@ function initBar(id, options) {
     options = $.extend(options, userOptions);
     
     var $target = this.$zone.find("[contenteditable]:first");
+	var $zone = this.$zone;
+	var $richtext = this;
     this.$zone.find('input[type=file][data-' + options.commandRole + ']').change(function () {
       var $target = restoreSelection(this);
       if (this.type === 'file' && this.files && this.files.length > 0) {
@@ -569,18 +571,28 @@ function initBar(id, options) {
       });
     }
     
-    this.$zone.find("[contenteditable]").on("mousedown keydown dbclick", saveSelection);
-    this.$zone.find("[contenteditable]").on("mouseup keyup", function() {
-      saveSelection();
+    this.$zone.find("[contenteditable]").on("blur", function(e) {
+      var $zone = $(e.target).closest(".richtext-zone");
+      $zone.selection("save");
+      $zone.data("bs.target.bs.div", $(e.target));
+    });
+	/*
+    this.$zone.find("[contenteditable]").on("mousedown keydown dbclick", function(e) {
+      saveSelection(e.target);
+    });
+    this.$zone.find("[contenteditable]").on("mouseup keyup", function(e) {
+      saveSelection(e.target);
       update();
     });
-    function saveSelection() {
-      var $zone = $(this).closest(".richinput-zone, .richtext-zone");
+    function saveSelection(element) {
+	
+      var $zone = $(element).closest(".richtext-zone");
       $zone.selection("save");
-      $zone.data("bs.target.bs.div", $(this));
+      $zone.data("bs.target.bs.div", $(element));
     }
+	*/
     function restoreSelection(element) {
-      var $zone = $(element).closest(".richinput-zone, .richtext-zone");
+      var $zone = $(element).closest(".richtext-zone");
       $zone.selection("restore");
       var $div = $zone.data("bs.target.bs.div");
       if (!$div) {
@@ -659,6 +671,7 @@ function initBar(id, options) {
   
   
   RichText.prototype.init_section = function () {
+	var rtext = this;
     var id = this.$element.attr("id");
     var css = (this.$element.attr("class").indexOf("col-") > -1 ? this.$element.attr("class").replace(/(.*)(col\-[^ ]+)(.*)/gi, "$2") : "");
     var style = __getEidtorStyle("#" + id);
