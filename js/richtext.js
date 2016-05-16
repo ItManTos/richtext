@@ -24,9 +24,9 @@ $(document).ready(function(){
     }
   }
     
-  Selection.prototype.save = function () { this.$element.data("bs.selection", this.get()); };
+  Selection.prototype.save = function () { this.$element.data("bs.selection.bs.range", this.get()); };
   Selection.prototype.restore = function () {
-    var stn = this.$element.data("bs.selection");
+    var stn = this.$element.data("bs.selection.bs.range");
     if (stn) {
       try {
         var sel = window.getSelection();
@@ -395,7 +395,7 @@ function initBar(id, options) {
 */
   var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier', 'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
     'Times New Roman', 'Verdana', '\u5B8B\u4F53', '\u9ED1\u4F53', '\u5FAE\u8F6F\u96C5\u9ED1', '\u534E\u6587\u7EC6\u9ED1', '\u534E\u6587\u9ED1\u4F53'];
-  var tbar = $(id).parent().find('.btn-toolbar');
+  var tbar = $(id).closest(".richtext-zone").find('.btn-toolbar');
   $(tbar).find('[title=Font]').each(function() {
   var fontTarget = $(this).siblings('.dropdown-menu');
   $.each(fonts, function (idx, fontName) {
@@ -465,8 +465,12 @@ function initBar(id, options) {
         '  <a class="color-box" data-edit="BackColor transparent" style="background-color: transparent;margin-left:200px;" title="No Color">X</a>\n' + 
         '  </div>\n' + 
         '  </li>\n';
-  $(tbar).find('.fore-color').each(function() { $(this).append($(htmFore)); });
-  $(tbar).find('.Back-Color').each(function() { $(this).append($(htmBack)); });
+  $(tbar).find('.fore-color').each(function() { 
+  $(this).append($(htmFore)); 
+  });
+  $(tbar).find('.Back-Color').each(function() { 
+  $(this).append($(htmBack)); 
+  });
 
   $(tbar).find('a[title]').tooltip({container:'body'});
   $(tbar).find('.dropdown-menu input').click(function() {return false;}).change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');}).keydown('esc', function () {this.value='';$(this).change();});
@@ -530,6 +534,8 @@ function initBar(id, options) {
     options = $.extend(options, userOptions);
     
     var $target = this.$zone.find("[contenteditable]:first");
+	var $zone = this.$zone;
+	var $richtext = this;
     this.$zone.find('input[type=file][data-' + options.commandRole + ']').change(function () {
       var $target = restoreSelection(this);
       if (this.type === 'file' && this.files && this.files.length > 0) {
@@ -550,6 +556,10 @@ function initBar(id, options) {
       $target.focus();
       $.each(files, function (idx, fileInfo) {
         if (/^image\//.test(fileInfo.type)) {
+          if (fileInfo.size > 10240) {
+			  // 10KB 以上进行文件上传处理
+			  options.error("Warning", "File size is too big(>10KB), may not save data into server successfully!");
+		  }
           $.when(read(fileInfo)).done(function (dataUrl) {
             execCommand('insertimage', dataUrl);
           }).fail(function (e) {
@@ -561,18 +571,28 @@ function initBar(id, options) {
       });
     }
     
-    this.$zone.find("[contenteditable]").on("mousedown keydown dbclick", saveSelection);
-    this.$zone.find("[contenteditable]").on("mouseup keyup", function() {
-      saveSelection();
+    this.$zone.find("[contenteditable]").on("blur", function(e) {
+      var $zone = $(e.target).closest(".richtext-zone");
+      $zone.selection("save");
+      $zone.data("bs.target.bs.div", $(e.target));
+    });
+	/*
+    this.$zone.find("[contenteditable]").on("mousedown keydown dbclick", function(e) {
+      saveSelection(e.target);
+    });
+    this.$zone.find("[contenteditable]").on("mouseup keyup", function(e) {
+      saveSelection(e.target);
       update();
     });
-    function saveSelection() {
-      var $zone = $(this).closest(".richinput-zone, .richtext-zone");
+    function saveSelection(element) {
+	
+      var $zone = $(element).closest(".richtext-zone");
       $zone.selection("save");
-      $zone.data("bs.target.bs.div", $(this));
+      $zone.data("bs.target.bs.div", $(element));
     }
+	*/
     function restoreSelection(element) {
-      var $zone = $(element).closest(".richinput-zone, .richtext-zone");
+      var $zone = $(element).closest(".richtext-zone");
       $zone.selection("restore");
       var $div = $zone.data("bs.target.bs.div");
       if (!$div) {
@@ -651,6 +671,7 @@ function initBar(id, options) {
   
   
   RichText.prototype.init_section = function () {
+	var rtext = this;
     var id = this.$element.attr("id");
     var css = (this.$element.attr("class").indexOf("col-") > -1 ? this.$element.attr("class").replace(/(.*)(col\-[^ ]+)(.*)/gi, "$2") : "");
     var style = __getEidtorStyle("#" + id);
