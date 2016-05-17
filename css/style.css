@@ -22,21 +22,21 @@ li > .btn-group-xs > .btn > img{
   width: 16px;
   height: 16px;
 }
+.colorpickerplus-colors-row {
+	overflow: hidden;
+	width:100%;
+}
 .color-box {
+	width: 16px;
+	height: 16px;
+	margin:0;
+	padding:0;
+	float:left;
+	border:1px solid #eee;
+	
 	position: relative;
-	float: left;
-	width:24px;
-	height:24px;
-	margin: 2px;
 	display: inline-block;
-	margin-bottom: 0;
-	font-weight: 400;
-	text-align: center;
-	vertical-align: middle;
 	cursor: pointer;
-	background-image: none;
-	border: 1px solid transparent;
-	white-space: nowrap;
 	font-size: 14px;
 	color: black;
 	line-height: 1.42857143;
