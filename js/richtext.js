@@ -296,7 +296,7 @@ function initBar(id, options) {
 '<a class="btn btn-default" data-edit="strikethrough" title="" data-original-title="Strikethrough"><b><i class="icon-strikethrough"></i></b></a>\n' + 
 '</div>\n' + 
 '<div class="btn-group" style="margin-left: 0px;">\n' + 
-'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Fore Color" style="color:blue;"><u><i class="icon-font"></i></u><b class="icon-caret-down"></b></a>\n' + 
+'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Fore Color" style="color:blue;"><i class="icon-font" style="border-bottom: blue 2px solid;"></i><b class="icon-caret-down"></b></a>\n' + 
 '<ul class="dropdown-menu fore-color" style="width:185px;padding: 10px; background-color: #fff;overflow: hidden;">\n' + 
 '</ul>\n' + 
 '</div>\n';
@@ -304,7 +304,7 @@ function initBar(id, options) {
   if (userOptions["sfont"] != "yes") {
   toolbar += "" + 
 '<div class="btn-group" style="margin-left: 0px;">\n' + 
-'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;color:#EEE;"><i class="icon-font"></i><b class="icon-caret-down"></b></b></a>\n' + 
+'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;width: 18px;height: 18px;" class="color-box"></b><b class="icon-caret-down"></b></a>\n' + 
 '<ul class="dropdown-menu Back-Color" style="width:185px;padding:10px; background-color: #fff;overflow: hidden;">\n' + 
 '</ul>\n' + 
 '</div>\n' + 
