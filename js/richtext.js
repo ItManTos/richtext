@@ -662,13 +662,13 @@ function initBar(id, options) {
       case "richtextcode":
       case "richtextcodeline":
         this.$element.addClass("mvc-group-m");
-        this.$element.wrap( '<div class="richtext-zone tab-content ' + css + '"><div class="tab-pane" id="' + id + '-m"> </div></div>');
+        this.$element.wrap( '<div class="richtext-zone tab-content ' + css + '"><div class="tab-pane clearfix" id="' + id + '-m"> </div></div>');
         
         var html = '<div class="switch-icon">\n' + 
             '  <a class="btn active" href="#' + id + '-v" data-toggle="tab" title="esay mode">view</a>\n' + 
             '  <a class="btn" href="#' + id + '-m" data-toggle="tab" title="expert mode">code</a>\n' + 
             '</div>\n' + 
-            '<div class="tab-pane mvc-group-v active" id="' + id + '-v" ><div id="' + id + '-v-e" target-obj="#' + id + '" class="editable" style="' + style + '" contenteditable="true" title="' + title + '"></div>\n' + 
+            '<div class="tab-pane clearfix mvc-group-v active" id="' + id + '-v" ><div id="' + id + '-v-e" target-obj="#' + id + '" class="editable" style="' + style + '" contenteditable="true" title="' + title + '"></div>\n' + 
             '</div>\n';
         $(html).insertBefore('#' + id + '-m');
         this.$element = $('#' + id + '-v-e');
@@ -705,19 +705,12 @@ function initBar(id, options) {
   
 function __getEidtorStyle(id) {
   var height = 34;
-
-  if ($(id).prop("tagName") == "TEXTAREA") {
-    height = 34 + 20 * (($(id).attr("rows") || 2) -1);
-    height = 'height: ' + height + 'px;overflow-y: scroll;';
-  } else if ($(id).prop("tagName") == "INPUT") {
-    height = 'min-height: ' + 34 + 'px;';
-  } else {
-    height = $(id).innerHeight();
-    if (height < 34) {
-      height = 34;
-    }
-    height = 'height: ' + height + 'px;overflow-y: scroll;';
+  var $input = $(id);
+  height = "height: " + Math.max(height, $input.outerHeight()) + "px;";
+  if ($input.prop("tagName") != "INPUT") {
+    height += 'overflow-y: auto;';
   }
+  
   return height;
 }
   function Plugin(option) {
