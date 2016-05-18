@@ -296,16 +296,16 @@ function initBar(id, options) {
 '<a class="btn btn-default" data-edit="strikethrough" title="" data-original-title="Strikethrough"><b><i class="icon-strikethrough"></i></b></a>\n' + 
 '</div>\n' + 
 '<div class="btn-group" style="margin-left: 0px;">\n' + 
-'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Fore Color" style="color:blue;"><u><i class="icon-font"></i></u><b class="icon-caret-down"></b></a>\n' + 
-'<ul class="dropdown-menu fore-color" style="width:230px">\n' + 
+'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Fore Color" style="color:blue;"><i class="icon-font" style="border-bottom: blue 2px solid;"></i><b class="icon-caret-down"></b></a>\n' + 
+'<ul class="dropdown-menu fore-color" style="width:185px;padding: 10px; background-color: #fff;overflow: hidden;">\n' + 
 '</ul>\n' + 
 '</div>\n';
 
   if (userOptions["sfont"] != "yes") {
   toolbar += "" + 
 '<div class="btn-group" style="margin-left: 0px;">\n' + 
-'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;color:#EEE;"><i class="icon-font"></i><b class="icon-caret-down"></b></b></a>\n' + 
-'<ul class="dropdown-menu Back-Color" style="width:230px;padding:2px;">\n' + 
+'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;width: 18px;height: 18px;" class="color-box"></b><b class="icon-caret-down"></b></a>\n' + 
+'<ul class="dropdown-menu Back-Color" style="width:185px;padding:10px; background-color: #fff;overflow: hidden;">\n' + 
 '</ul>\n' + 
 '</div>\n' + 
 '\n';
@@ -402,69 +402,36 @@ function initBar(id, options) {
     fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
   });
   });
-  var colors = [{color: "#000000", style: "color:silver;", title: "Black"},
-        {color: "#333333", style: "color:silver;", title: "Very dark gray"},
-        {color: "#555555", style: "color:silver;", title: "Dark555"},
-        {color: "#808080", style: "", title: "Gray"},
-        {color: "#999999", style: "", title: "Medium gray"},
-        {color: "#C0C0C0", style: "", title: "Silver"},
-        {color: "#D3D3D3", style: "", title: "Light grey"},
-        {color: "#FFFFFF", style: "", title: "White"},
-        {color: "#800000", style: "color:silver;", title: "Maroon"},
-        {color: "#A52A2A", style: "color:silver;", title: "Brown"},
-        {color: "#FF0000", style: "", title: "Red"},
-        {color: "#FF6600", style: "", title: "Orange"},
-        {color: "#FF9900", style: "", title: "Amber"},
-        {color: "#FFCC00", style: "", title: "Gold"},
-        {color: "#FFFF00", style: "", title: "Yellow"},
-        {color: "#FFFF99", style: "", title: "Light yellow"},
-        {color: "#800080", style: "color:silver;", title: "Purple"},
-        {color: "#9400D3", style: "color:silver;", title: "Dark violet"},
-        {color: "#CC99FF", style: "", title: "Plum"},
-        {color: "#FF1493", style: "", title: "Deep Pink"},
-        {color: "#FF00FF", style: "", title: "Magenta"},
-        {color: "#EE82EE", style: "", title: "violet"},
-        {color: "#FF99CC", style: "", title: "Pink"},
-        {color: "#FFCC99", style: "", title: "Peach"},
-        {color: "#000080", style: "color:silver;", title: "Navy Blue"},
-        {color: "#0000FF", style: "color:silver;", title: "Blue"},
-        {color: "#3366FF", style: "color:silver;", title: "Royal blue"},
-        {color: "#33CCCC", style: "", title: "Turquoise"},
-        {color: "#00CCFF", style: "", title: "Sky blue"},
-        {color: "#00FFFF", style: "", title: "Aqua"},
-        {color: "#99CCFF", style: "", title: "Light sky blue"},
-        {color: "#ADD8E6", style: "", title: "Light blue"},
-        {color: "#003300", style: "color:silver;", title: "Dark green"},
-        {color: "#008000", style: "color:silver;", title: "Green"},
-        {color: "#339966", style: "color:silver;", title: "Sea green"},
-        {color: "#99CC00", style: "", title: "Yellow green"},
-        {color: "#ADFF2F", style: "", title: "Green Yellow "},
-        {color: "#00FF00", style: "", title: "Lime"},
-        {color: "#90EE90", style: "", title: "Light green"},
-        {color: "#CCFFCC", style: "", title: "Pale green"}  ];
-  var total = 0;
+  var colors = 
+  [
+["rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)", "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"],
+["rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)", "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"],
+["rgb(133, 32, 12)", "rgb(153, 0, 0)", "rgb(180, 95, 6)", "rgb(191, 144, 0)", "rgb(56, 118, 29)", "rgb(19, 79, 92)", "rgb(17, 85, 204)", "rgb(11, 83, 148)", "rgb(53, 28, 117)", "rgb(116, 27, 71)"],
+["rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)", "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)"],
+["rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)", "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)"],
+["rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)", "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)"],
+["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)", "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)"],
+[],
+["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)", "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+["rgb(0, 0, 0)", "rgb(34, 34, 34)", "rgb(68, 68, 68)", "rgb(102, 102, 102)", "rgb(136, 136, 136)", "rgb(170, 170, 170)", "rgb(204, 204, 204)", "rgb(221, 221, 221)", "rgb(238, 238, 238)", "rgb(255, 255, 255)"]
+]
+
   var htmFore = "";
   var htmBack = "";
-  $.each(colors, function (idx, color) {
-    if (total == 0) {
-      htmFore += '  <li> \n  <div class="">\n';
-    }
-    htmFore += '  <a class="color-box" data-edit="ForeColor ' + color["color"] + '" style="background-color: ' + color["color"] + ';' + color["style"] + '" title="' + color["title"] + '">' + color["title"].charAt(0) + '</a>\n';
-    
-    total++;
-    if (total == 8) {
-      htmFore += '  </div></li>\n';
-      total = 0;
-    }
+
+  
+  $.each(colors, function (idx, line) {
+    htmFore += '<div class="colorpickerplus-colors-row"' + ((line.length < 1) ? ' style="height: 16px;"': '') + '>\n';
+	$.each(line, function (idx2, color) {
+		htmFore += '  <a class="color-box" data-edit="ForeColor ' + color + '" style="background-color: ' + color + ';"></a>';
+	});
+    htmFore += '</div>\n';
   });
-  if (total != 0) {
-    htmFore += '  </div></li>\n';
-  }
-  htmBack = htmFore.replace(/ForeColor/g, "BackColor") + '  <li>\n' + 
-        '  <div class="btn-group">\n' + 
-        '  <a class="color-box" data-edit="BackColor transparent" style="background-color: transparent;margin-left:200px;" title="No Color">X</a>\n' + 
-        '  </div>\n' + 
-        '  </li>\n';
+  
+  htmBack = htmFore.replace(/ForeColor/g, "BackColor") + 
+        '  <div class="colorpickerplus-colors-row">\n' + 
+        '  <a class="btn btn-link color-box" data-edit="BackColor transparent" style="background-color: transparent;margin-left:145px;" title="No Color">X</a>\n' + 
+        '  </div>\n';
   $(tbar).find('.fore-color').each(function() { 
   $(this).append($(htmFore)); 
   });
@@ -695,13 +662,13 @@ function initBar(id, options) {
       case "richtextcode":
       case "richtextcodeline":
         this.$element.addClass("mvc-group-m");
-        this.$element.wrap( '<div class="richtext-zone tab-content ' + css + '"><div class="tab-pane" id="' + id + '-m"> </div></div>');
+        this.$element.wrap( '<div class="richtext-zone tab-content ' + css + '"><div class="tab-pane clearfix" id="' + id + '-m"> </div></div>');
         
         var html = '<div class="switch-icon">\n' + 
             '  <a class="btn active" href="#' + id + '-v" data-toggle="tab" title="esay mode">view</a>\n' + 
             '  <a class="btn" href="#' + id + '-m" data-toggle="tab" title="expert mode">code</a>\n' + 
             '</div>\n' + 
-            '<div class="tab-pane mvc-group-v active" id="' + id + '-v" ><div id="' + id + '-v-e" target-obj="#' + id + '" class="editable" style="' + style + '" contenteditable="true" title="' + title + '"></div>\n' + 
+            '<div class="tab-pane clearfix mvc-group-v active" id="' + id + '-v" ><div id="' + id + '-v-e" target-obj="#' + id + '" class="editable" style="' + style + '" contenteditable="true" title="' + title + '"></div>\n' + 
             '</div>\n';
         $(html).insertBefore('#' + id + '-m');
         this.$element = $('#' + id + '-v-e');
@@ -738,19 +705,12 @@ function initBar(id, options) {
   
 function __getEidtorStyle(id) {
   var height = 34;
-
-  if ($(id).prop("tagName") == "TEXTAREA") {
-    height = 34 + 20 * (($(id).attr("rows") || 2) -1);
-    height = 'height: ' + height + 'px;overflow-y: scroll;';
-  } else if ($(id).prop("tagName") == "INPUT") {
-    height = 'min-height: ' + 34 + 'px;';
-  } else {
-    height = $(id).innerHeight();
-    if (height < 34) {
-      height = 34;
-    }
-    height = 'height: ' + height + 'px;overflow-y: scroll;';
+  var $input = $(id);
+  height = "height: " + Math.max(height, $input.outerHeight()) + "px;";
+  if ($input.prop("tagName") != "INPUT") {
+    height += 'overflow-y: auto;';
   }
+  
   return height;
 }
   function Plugin(option) {
