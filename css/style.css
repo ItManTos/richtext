@@ -5,6 +5,7 @@
 
 a.color-box:active, a.color-box:hover {
 	text-decoration: none;
+	border:1px solid #000;
 }
 
 .btn-toolbar > .btn-group > .btn {
@@ -42,7 +43,6 @@ li > .btn-group-xs > .btn > img{
 	line-height: 1.42857143;
 	text-decoration: none;
 }
-
 .col-md-0 {
 	float: left;
 	position: relative;
