@@ -1,10 +1,10 @@
 /* ========================================================================
  * Rich Text: richtext.js v1.2
- * http://itman70s.github.io/
+ * http://ItManTos.github.io/
  * ======================================================================== */
  
-$(document).ready(function(){
-  $(this).bindRichText();
+jQuery(document).ready(function(){
+  jQuery(this).bindRichText();
 });
 
 
@@ -110,7 +110,11 @@ $(document).ready(function(){
       }
     }
   };
-  bindhotkeys();
+  if (jQuery.hotkeys) {
+	bindhotkeys();
+  } else {
+	  console.warn("RichText: not found jQuery hotkeys plugin, disabled hot keys for rich text.");
+  }
 }(window.jQuery));
 
 (function ($) {
@@ -304,7 +308,7 @@ function initBar(id, options) {
   if (userOptions["sfont"] != "yes") {
   toolbar += "" + 
 '<div class="btn-group" style="margin-left: 0px;">\n' + 
-'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: rgb(106, 168, 79);width: 16px;height: 16px; border: 1px solid #000;" class="color-box"></b><b class="icon-caret-down"></b></a>\n' + 
+'<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Background Color"><b style="background-color: blue;width: 18px;height: 18px;" class="color-box"></b><b class="icon-caret-down"></b></a>\n' + 
 '<ul class="dropdown-menu Back-Color" style="width:185px;padding:10px; background-color: #fff;overflow: hidden;">\n' + 
 '</ul>\n' + 
 '</div>\n' + 
@@ -404,26 +408,26 @@ function initBar(id, options) {
   });
   var colors = 
   [
-["#5B0F00","#660000","#783F04","#7F6000","#274E13","#0C343D","#1C4587","#073763","#20124D","#4C1130"],
-["#5B0F00","#660000","#783F04","#7F6000","#274E13","#0C343D","#1C4587","#073763","#20124D","#4C1130"],
-["#85200C","#990000","#B45F06","#BF9000","#38761D","#134F5C","#1155CC","#0B5394","#351C75","#741B47"],
-["#A61C00","#CC0000","#E69138","#F1C232","#6AA84F","#45818E","#3C78D8","#3D85C6","#674EA7","#A64D79"],
-["#CC4125","#E06666","#F6B26B","#FFD966","#93C47D","#76A5AF","#6D9EEB","#6FA8DC","#8E7CC3","#C27BA0"],
-["#DD7E6B","#EA9999","#F9CB9C","#FFE599","#B6D7A8","#A2C4C9","#A4C2F4","#9FC5E8","#B4A7D6","#D5A6BD"],
-["#E6B8AF","#F4CCCC","#FCE5CD","#FFF2CC","#D9EAD3","#D0E0E3","#C9DAF8","#CFE2F3","#D9D2E9","#EAD1DC"],
+["rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)", "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"],
+["rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)", "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"],
+["rgb(133, 32, 12)", "rgb(153, 0, 0)", "rgb(180, 95, 6)", "rgb(191, 144, 0)", "rgb(56, 118, 29)", "rgb(19, 79, 92)", "rgb(17, 85, 204)", "rgb(11, 83, 148)", "rgb(53, 28, 117)", "rgb(116, 27, 71)"],
+["rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)", "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)"],
+["rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)", "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)"],
+["rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)", "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)"],
+["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)", "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)"],
 [],
-["#980000","#FF0000","#FF9900","#FFFF00","#00FF00","#00FFFF","#4A86E8","#0000FF","#9900FF","#FF00FF"],
-["#000000","#222222","#444444","#666666","#888888","#AAAAAA","#CCCCCC","#DDDDDD","#EEEEEE","#FFFFFF"]
-];
+["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)", "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+["rgb(0, 0, 0)", "rgb(34, 34, 34)", "rgb(68, 68, 68)", "rgb(102, 102, 102)", "rgb(136, 136, 136)", "rgb(170, 170, 170)", "rgb(204, 204, 204)", "rgb(221, 221, 221)", "rgb(238, 238, 238)", "rgb(255, 255, 255)"]
+]
 
   var htmFore = "";
   var htmBack = "";
 
-  var colorarray = "";
+  
   $.each(colors, function (idx, line) {
     htmFore += '<div class="colorpickerplus-colors-row"' + ((line.length < 1) ? ' style="height: 16px;"': '') + '>\n';
 	$.each(line, function (idx2, color) {
-		htmFore += '  <a class="color-box" data-edit="ForeColor ' + color + '" title="" data-original-title="' + color + '" style="background-color: ' + color + ';"></a>';
+		htmFore += '  <a class="color-box" data-edit="ForeColor ' + color + '" style="background-color: ' + color + ';"></a>';
 	});
     htmFore += '</div>\n';
   });
@@ -451,7 +455,8 @@ function initBar(id, options) {
   var RichText = function (type, element, userOptions) {
     this.type = type;
     this.options = {};
-    this.$element = $(element);
+    this.$input = $(element);
+    this.$element = $(element); // will switch to div editor later
     this.$zone = null;
     this.selector = null;
     this.single = (this.$element.prop("tagName") == "INPUT");
@@ -467,6 +472,13 @@ function initBar(id, options) {
     }
     
     var opt = {};
+	if (this.$input.attr("options") ) {
+		try {
+			opt = JSON.parse("{" + this.$input.attr("options") + "}");
+		} catch(e) {
+			console.error("Failed to parse RichText options: {" + this.$input.attr("options") + "}\n Copy the options string to json format web site to feagure out what's wrong. \n " + e);
+		}
+	}
     if (this.single) {
       opt["p"] = "no";
     //  opt["img"] = "no";
@@ -482,7 +494,7 @@ function initBar(id, options) {
     }
   
     // todo fix richTextOptions and userOptions
-    this.options = $.extend({}, richTextOptions, opt, userOptions, this.$element.attr("options") && JSON.parse(this.$element.attr("options")));
+    this.options = $.extend({}, richTextOptions, userOptions, opt);
     this.selector = this.$element.attr("id") ? "#" + this.$element.attr("id") : this.$element.attr("target-obj");
     initBar(this.selector, this.options);
     if (this.options["baronly"] == "yes") {

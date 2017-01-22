@@ -21,7 +21,8 @@
 	<script src="./js/jquery.hotkeys.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
     <script src="./js/richtext.js"></script>
-    <script src="../js/itman70s.menu.js"></script>
+    <script src="../js/ItManTos.menu.js"></script>
+    <script src="./js/angular.min.js"></script>
 <style>
 .bs-example {
   width: 100%;
@@ -62,20 +63,20 @@ body { margin-top: 70px; }
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	<a class="navbar-brand" href="http://itman70s.github.io/richtext">Rich Text</a>
+	<a class="navbar-brand" href="http://ItManTos.github.io/richtext">Rich Text</a>
     </div>
     <nav id="bs-navbar" class="collapse navbar-collapse">
 	<ul class="nav navbar-nav">
 		<li><a href="index.html">Home</a></li>
 		<li class="active"><a href="start.html" data-placement="bottom" title="Demo, Usage">Get Started</a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext" data-placement="bottom" title="Open in github">[Code]   </a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/issues" data-placement="bottom" title="Open in github">[Issues] </a></li>
-		<li><a target="_blank" href="https://github.com/ItMan70s/richtext/releases" data-placement="bottom" title="Open in github">[Download] </a></li>
+		<li><a target="_blank" href="https://github.com/ItManTos/richtext" data-placement="bottom" title="Open in github">[Code]   </a></li>
+		<li><a target="_blank" href="https://github.com/ItManTos/richtext/issues" data-placement="bottom" title="Open in github">[Issues] </a></li>
+		<li><a target="_blank" href="https://github.com/ItManTos/richtext/releases" data-placement="bottom" title="Open in github">[Download] </a></li>
 	</ul>
 	<ul class="nav navbar-nav pull-right">
 		<li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle itman70s_menu" data-toggle="dropdown" data-placement="right" title="All about ItMan70s.github.io"><img class="pull-left" src="img/logo_w.png"> <b class="caret"></b></a>
-          <ul class="dropdown-menu itman70s_sub_menu">
+          <a href="javascript:;" class="dropdown-toggle ItManTos_menu" data-toggle="dropdown" data-placement="right" title="All about ItManTos.github.io"><img class="pull-left" src="img/logo_w.png"> <b class="caret"></b></a>
+          <ul class="dropdown-menu ItManTos_sub_menu">
           </ul>
         </li>
 	</ul>
@@ -155,6 +156,26 @@ body { margin-top: 70px; }
 	</div>
 	
 	
+	<h2>Rich Text works with AngularJS </h2>
+	<p>Add rich text keywords into input elemnt's class like <code>richtextcode</code>.</p>
+	<div class="bs-example"><label>[Sample]</label>
+		<div class="example">
+			<div ng-app="">
+			  <p>姓名 : <input type="text" class='form-control richtext' ng-model="name" options='"sfont":"yes", "img":"no", "link":"no", "undo":"no"'></p>
+			  <p>描述 : <textarea type="text" class='form-control richtext' cols=100 rows=6  ng-model="Description" options='"undo":"no"'></textarea></p>
+			  <h1>{{name}}的描述: {{Description}}</h1>
+			</div>
+		</div>
+
+		<pre><label>[Code]</label>
+&lt;div ng-app=""&gt;
+  &lt;p&gt;姓名 : &lt;input type="text" class='form-control richtext' ng-model="name" options='"sfont":"yes", "img":"no", "link":"no", "undo":"no"'&gt;&lt;/p&gt;
+  &lt;p&gt;描述 : &lt;textarea type="text" class='form-control richtext' ng-model="Description" options='"undo":"no"'&gt;&lt;/textarea&gt;&lt;/p&gt;
+  &lt;h1&gt;{{name}}的描述: {{Description}}&lt;/h1&gt;
+&lt;/div&gt;
+		</pre>
+	</div>
+	
 	<h2>Hotkeys for Rich Text</h2>
 	<div class="bs-example"><p>Following hotkeys could be used in any rich text box even there is no such button in tool bar:</p>
 <pre>
@@ -203,7 +224,7 @@ richTextOptions["clear"] = "no"; // hide following button: <i class="icon-remove
 	
 	<div class="bs-example"><p>To hide buttons in tool bar for current rich text, add options into attribute, like:</p>
 <pre>
-&lt;textarea class='<b>richtextcode</b> col-md-12' cols=100 rows=6 <b>options='autohide:"no", sfont:"yes", img:"no", link:"no", undo:"no"'</b> &gt; &lt;/textarea&gt;
+&lt;textarea class='<b>richtextcode</b> col-md-12' cols=100 rows=6 <b>options='"autohide":"no", "sfont":"yes", "img":"no", "link":"no", "undo":"no"'</b> &gt; &lt;/textarea&gt;
 </pre>
 	</div>
 	

@@ -1,10 +1,10 @@
-![itman70s](favicon.ico) Html5 Rich Text
+![itmanTos](favicon.ico) Html5 Rich Text
 ===================
 Tiny Html5 rich text editor based on bootstrap3 and jQuery, makes it easy to enable switch your input/textarea element into simple WYSIWYG editors.
 
 Demo
 -----------
-See http://itman70s.github.io/richtext/
+See http://itmanTos.github.io/richtext/
 
 Usage
 -----------
