@@ -3,8 +3,8 @@
  * http://ItManTos.github.io/
  * ======================================================================== */
  
-$(document).ready(function(){
-  $(this).bindRichText();
+jQuery(document).ready(function(){
+  jQuery(this).bindRichText();
 });
 
 
@@ -110,7 +110,11 @@ $(document).ready(function(){
       }
     }
   };
-  bindhotkeys();
+  if (jQuery.hotkeys) {
+	bindhotkeys();
+  } else {
+	  console.warn("RichText: not found jQuery hotkeys plugin, disabled hot keys for rich text.");
+  }
 }(window.jQuery));
 
 (function ($) {
@@ -451,7 +455,8 @@ function initBar(id, options) {
   var RichText = function (type, element, userOptions) {
     this.type = type;
     this.options = {};
-    this.$element = $(element);
+    this.$input = $(element);
+    this.$element = $(element); // will switch to div editor later
     this.$zone = null;
     this.selector = null;
     this.single = (this.$element.prop("tagName") == "INPUT");
@@ -467,6 +472,13 @@ function initBar(id, options) {
     }
     
     var opt = {};
+	if (this.$input.attr("options") ) {
+		try {
+			opt = JSON.parse("{" + this.$input.attr("options") + "}");
+		} catch(e) {
+			console.error("Failed to parse RichText options: {" + this.$input.attr("options") + "}\n Copy the options string to json format web site to feagure out what's wrong. \n " + e);
+		}
+	}
     if (this.single) {
       opt["p"] = "no";
     //  opt["img"] = "no";
@@ -482,7 +494,7 @@ function initBar(id, options) {
     }
   
     // todo fix richTextOptions and userOptions
-    this.options = $.extend({}, richTextOptions, opt, userOptions, this.$element.attr("options") && JSON.parse(this.$element.attr("options")));
+    this.options = $.extend({}, richTextOptions, userOptions, opt);
     this.selector = this.$element.attr("id") ? "#" + this.$element.attr("id") : this.$element.attr("target-obj");
     initBar(this.selector, this.options);
     if (this.options["baronly"] == "yes") {

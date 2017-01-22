@@ -22,6 +22,7 @@
 	<script src="./js/bootstrap.min.js"></script>
     <script src="./js/richtext.js"></script>
     <script src="../js/ItManTos.menu.js"></script>
+    <script src="./js/angular.min.js"></script>
 <style>
 .bs-example {
   width: 100%;
@@ -155,6 +156,26 @@ body { margin-top: 70px; }
 	</div>
 	
 	
+	<h2>Rich Text works with AngularJS </h2>
+	<p>Add rich text keywords into input elemnt's class like <code>richtextcode</code>.</p>
+	<div class="bs-example"><label>[Sample]</label>
+		<div class="example">
+			<div ng-app="">
+			  <p>姓名 : <input type="text" class='form-control richtext' ng-model="name" options='"sfont":"yes", "img":"no", "link":"no", "undo":"no"'></p>
+			  <p>描述 : <textarea type="text" class='form-control richtext' cols=100 rows=6  ng-model="Description" options='"undo":"no"'></textarea></p>
+			  <h1>{{name}}的描述: {{Description}}</h1>
+			</div>
+		</div>
+
+		<pre><label>[Code]</label>
+&lt;div ng-app=""&gt;
+  &lt;p&gt;姓名 : &lt;input type="text" class='form-control richtext' ng-model="name" options='"sfont":"yes", "img":"no", "link":"no", "undo":"no"'&gt;&lt;/p&gt;
+  &lt;p&gt;描述 : &lt;textarea type="text" class='form-control richtext' ng-model="Description" options='"undo":"no"'&gt;&lt;/textarea&gt;&lt;/p&gt;
+  &lt;h1&gt;{{name}}的描述: {{Description}}&lt;/h1&gt;
+&lt;/div&gt;
+		</pre>
+	</div>
+	
 	<h2>Hotkeys for Rich Text</h2>
 	<div class="bs-example"><p>Following hotkeys could be used in any rich text box even there is no such button in tool bar:</p>
 <pre>
@@ -203,7 +224,7 @@ richTextOptions["clear"] = "no"; // hide following button: <i class="icon-remove
 	
 	<div class="bs-example"><p>To hide buttons in tool bar for current rich text, add options into attribute, like:</p>
 <pre>
-&lt;textarea class='<b>richtextcode</b> col-md-12' cols=100 rows=6 <b>options='autohide:"no", sfont:"yes", img:"no", link:"no", undo:"no"'</b> &gt; &lt;/textarea&gt;
+&lt;textarea class='<b>richtextcode</b> col-md-12' cols=100 rows=6 <b>options='"autohide":"no", "sfont":"yes", "img":"no", "link":"no", "undo":"no"'</b> &gt; &lt;/textarea&gt;
 </pre>
 	</div>
 	
